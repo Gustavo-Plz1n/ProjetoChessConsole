@@ -1,7 +1,8 @@
 ﻿using System;
-using ChessConsole.Tabuleiro;
+using tabuleiro;
 
-namespace MyApp // Note: actual namespace depends on the project name.
+namespace ChessConsole // Note: actual namespace depends on the project name.
+    
 {
      class Program
     {
@@ -9,7 +10,9 @@ namespace MyApp // Note: actual namespace depends on the project name.
         {
             Tabuleiro tab = new Tabuleiro(8, 8);
 
-            Console.WriteLine();
+            Tela.imprimirTabuleiro(tab);
+
+            Console.ReadLine();
 
 
 
