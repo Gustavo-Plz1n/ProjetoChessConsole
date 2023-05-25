@@ -1,16 +1,15 @@
 ﻿using System;
-using Tabuleiro;
+using ChessConsole.Tabuleiro;
 
 namespace MyApp // Note: actual namespace depends on the project name.
 {
-    internal class Program
+     class Program
     {
         static void Main(string[] args)
         {
-            Posicao p;
-            p = new Posicao(3, 4);
-            Console.WriteLine("Posição: " + p);
-            Console.ReadLine();
+            Tabuleiro tab = new Tabuleiro(8, 8);
+
+            Console.WriteLine();
 
 
 
