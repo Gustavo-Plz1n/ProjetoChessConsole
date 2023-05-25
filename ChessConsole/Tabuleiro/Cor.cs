@@ -9,8 +9,8 @@ namespace ChessConsole
      enum Cor
     {
 
-        Branco,
-        Preto,
+        Branca,
+        Preta,
         Amarela,
         Azul,
         Vermelha,
