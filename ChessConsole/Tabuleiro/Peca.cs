@@ -21,5 +21,9 @@ namespace ChessConsole
             this.tab = tab;
             this.quantMovimentos = 0;
         }
+        public void IncrementarQteMovimentos()
+        {
+            quantMovimentos++;
+        }
     }
 }

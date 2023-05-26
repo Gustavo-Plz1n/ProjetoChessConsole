@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChessConsole.xadrez;
+using System;
 
 using tabuleiro;
 
@@ -19,14 +20,24 @@ namespace ChessConsole
                     }
                     else
                     {
-                        ImprimirPeca(tab.peca(i, j));
-                        Console.Write(" ");
+                        ImprimirPeca(tab.peca(i,j));
+                        Console.Write("");
                     }
                 }
                 Console.WriteLine();
             }
             Console.WriteLine("  A B C D E F G H");
         }
+        public static PosicaoXadrez lerPosicaoXadrez()
+        {
+            string s = Console.ReadLine()!;
+            char coluna = s[0];
+            int linha = int.Parse(s[1] + " ");
+            return new PosicaoXadrez(coluna, linha);
+        }
+
+
+
         public static void ImprimirPeca(Peca peca)
         {
 
@@ -43,7 +54,7 @@ namespace ChessConsole
                 else
                 {
                     ConsoleColor aux = Console.ForegroundColor;
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write(peca);
                     Console.ForegroundColor = aux;
                 }
@@ -52,7 +63,3 @@ namespace ChessConsole
         }
     }
 }
-
-
-
-

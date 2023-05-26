@@ -17,7 +17,5 @@ namespace ChessConsole
         Verde,
         Laranja
 
-
-
     }
 }

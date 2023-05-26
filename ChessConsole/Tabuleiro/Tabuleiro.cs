@@ -40,6 +40,21 @@ namespace tabuleiro
             pecas[pos.Linha, pos.Coluna] = p;
             p.posicao = pos;
         }
+        public Peca RetirarPeca(Posicao pos)
+        {
+            if (peca(pos) == null)
+            {
+                return null;
+            }
+            Peca aux = peca(pos);
+            aux.posicao = null;
+            pecas[pos.Linha,pos.Coluna] = null;
+            return aux;
+        }
+
+
+
+
 
         public bool posicaoValida(Posicao pos)
         {
@@ -56,5 +71,6 @@ namespace tabuleiro
                 throw new TabuleiroException("Posição inválida!");
             }
         }
+
     }
 }

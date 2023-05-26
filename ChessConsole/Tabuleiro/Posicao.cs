@@ -20,8 +20,5 @@ namespace ChessConsole
             return Linha + ", " + Coluna;
         }
 
-
-
-
     }
 }
