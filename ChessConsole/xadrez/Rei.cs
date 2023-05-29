@@ -8,9 +8,10 @@ namespace ChessConsole.xadrez
 {
     class Rei : Peca
     {
+        private PartidaDeXadrez partida;
         public Rei(Tabuleiro tab, Cor cor) : base(tab, cor)
         {
-
+            this.partida = partida;
         }
         public override string ToString()
         {
@@ -19,7 +20,7 @@ namespace ChessConsole.xadrez
         private bool PodeMover(Posicao pos)
         {
             Peca p = tab.peca(pos);
-            return p != null || p.cor != cor;
+            return p == null || p.cor != cor;
         }
         public override bool[,] MovimentosPossiveis()
         {

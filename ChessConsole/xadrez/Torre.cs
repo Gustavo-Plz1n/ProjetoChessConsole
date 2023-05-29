@@ -79,6 +79,6 @@ namespace ChessConsole.xadrez
             return mat;
         }
     }
-    }
+}
 
 
