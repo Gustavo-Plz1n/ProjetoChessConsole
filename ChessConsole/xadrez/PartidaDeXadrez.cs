@@ -13,6 +13,7 @@ namespace ChessConsole.xadrez
         private HashSet<Peca> pecas;
         private HashSet<Peca> Capturadas;
         public bool Xeque { get; private set; }
+        public Peca VulneravelEnPassent { get; private set; }
         public PartidaDeXadrez()
         {
             tab = new Tabuleiro(8, 8);
@@ -20,6 +21,7 @@ namespace ChessConsole.xadrez
             jogadorAtual = Cor.Branca;
             Terminada = false;
             Xeque = false;
+            VulneravelEnPassent = null;
             pecas = new HashSet<Peca>();
             Capturadas = new HashSet<Peca>();
             ColocarPecas();
@@ -52,7 +54,24 @@ namespace ChessConsole.xadrez
                 T.IncrementarQteMovimentos();
                 tab.colocarPeca(T, destinoT);
             }
-
+            // #jogadaespecial en passant
+            if (p is Peao)
+            {
+                if (origem.Coluna != destino.Coluna && pecaCapturada == null)
+                {
+                    Posicao posP;
+                    if (p.cor == Cor.Branca)
+                    {
+                        posP = new Posicao(destino.Linha + 1, destino.Coluna);
+                    }
+                    else
+                    {
+                        posP = new Posicao(destino.Linha - 1, destino.Coluna);
+                    }
+                    pecaCapturada = tab.RetirarPeca(posP);
+                    Capturadas.Add(pecaCapturada);
+                }
+            }
 
             return pecaCapturada;
         }
@@ -68,7 +87,8 @@ namespace ChessConsole.xadrez
             }
             tab.colocarPeca(p, origem);
             // #jogadaespecial roque pequeno
-            if (p is Rei && destino.Coluna == origem.Coluna + 2) {
+            if (p is Rei && destino.Coluna == origem.Coluna + 2)
+            {
                 Posicao origemT = new Posicao(origem.Linha, origem.Coluna + 3);
                 Posicao destinoT = new Posicao(origem.Linha, origem.Coluna + 1);
                 Peca T = tab.RetirarPeca(destinoT);
@@ -77,12 +97,31 @@ namespace ChessConsole.xadrez
             }
 
             // #jogadaespecial roque grande
-            if (p is Rei && destino.Coluna == origem.Coluna - 2) {
+            if (p is Rei && destino.Coluna == origem.Coluna - 2)
+            {
                 Posicao origemT = new Posicao(origem.Linha, origem.Coluna - 4);
                 Posicao destinoT = new Posicao(origem.Linha, origem.Coluna - 1);
                 Peca T = tab.RetirarPeca(destinoT);
                 T.DecrementarQteMovimentos();
                 tab.colocarPeca(T, origemT);
+                if (p is Peao)
+                {
+
+                }
+                if (origem.Coluna != destino.Coluna && PecaCapturada == VulneravelEnPassent)
+                {
+                    Peca peao = tab.RetirarPeca(destino);
+                    Posicao posP;
+                    if (p.cor == Cor.Branca)
+                    {
+                        posP = new Posicao(3, destino.Coluna);
+                    }
+                    else
+                    {
+                        posP = new Posicao(4, destino.Coluna);
+                    }
+                    tab.colocarPeca(peao, posP);
+                }
             }
         }
 
@@ -117,6 +156,18 @@ namespace ChessConsole.xadrez
                 Turno++;
                 MudaJogador();
             }
+
+            Peca P = tab.peca(destino);
+            // #jogadaespecial en passant
+            if (p is Peao && (destino.Linha == origem.Linha - 2 || destino.Linha == origem.Linha + 2))
+            {
+                VulneravelEnPassent = p;
+            }
+            else
+            {
+                VulneravelEnPassent = null;
+            }
+
 
         }
         public void ValidarPosicaoDeOrigem(Posicao pos)
