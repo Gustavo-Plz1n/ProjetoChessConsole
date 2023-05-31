@@ -25,6 +25,9 @@ namespace ChessConsole
         public void IncrementarQteMovimentos()
         {
             quantMovimentos++;
+        }public void DecrementarQteMovimentos()
+        {
+            quantMovimentos--;
         }
         public bool ExisteMovimentosPossiveis()
         {
