@@ -14,18 +14,16 @@ namespace ChessConsole // Note: actual namespace depends on the project name.
             try
             {
                 PartidaDeXadrez partida = new PartidaDeXadrez();
+
                 while (!partida.Terminada)
                 {
+
                     try
                     {
                         Console.Clear();
+                        Tela.ImprimirPartida(partida);
 
-                        Tela.ImprimirTabuleiro(partida.tab);
                         Console.WriteLine();
-                        Console.WriteLine("Turno: " + partida.Turno);
-                        Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
-
-
                         Console.Write("Origem: ");
                         Posicao origem = Tela.lerPosicaoXadrez().toPosicao();
                         partida.ValidarPosicaoDeOrigem(origem);
@@ -39,20 +37,24 @@ namespace ChessConsole // Note: actual namespace depends on the project name.
                         Console.Write("Destino: ");
                         Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
                         partida.ValidarPosicaoDeDestino(origem, destino);
+
+                        partida.RealizaJogada(origem, destino);
                     }
-                    catch ( TabuleiroException e)
+                    catch (TabuleiroException e)
                     {
                         Console.WriteLine(e.Message);
                         Console.ReadLine();
                     }
                 }
-
-
+                Console.Clear();
+                Tela.ImprimirPartida(partida);
             }
             catch (TabuleiroException e)
             {
                 Console.WriteLine(e.Message);
             }
+
+            Console.ReadLine();
         }
     }
 }
